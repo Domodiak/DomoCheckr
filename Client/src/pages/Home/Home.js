@@ -1,18 +1,8 @@
-import { useAuth } from '../../hooks/useAuth'
-
-export function Home() {
-    const [auth, loading] = useAuth()
-
-    if(loading) {
-        return (
-            <div>
-                <h1>Loading...</h1>
-            </div>
-        )
-    }
+export function Home({ auth }) {
 
     if(!auth) {
-        console.log('no auth')
+        window.location.href = '/login/'
+        return <div></div>
     }
 
     return (
