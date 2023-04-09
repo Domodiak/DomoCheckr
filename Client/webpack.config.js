@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  devtool: 'source-map',
   mode: 'development',
   entry: './src/index.js',
   output: {
@@ -10,6 +11,9 @@ module.exports = {
     publicPath: '/',
   },
   devServer: {
+    historyApiFallback: {
+      index: 'index.html',
+    },
     static: {
       directory: path.join(__dirname, 'public'),
     },
@@ -31,7 +35,7 @@ module.exports = {
           options: {
             presets: ['@babel/env', '@babel/preset-react'],
           },
-        },
+        },  
       },
       {
         test: /\.scss$/i,
