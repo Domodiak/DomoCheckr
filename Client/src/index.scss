@@ -2,8 +2,15 @@
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
+    color: auto;
+    border: none;
+    text-decoration: none;
+    caret-color: white;
+    outline: none;
+}
+
+body {
     background-color: black;
-    color: white;
 }
 
 .fullscreen {
@@ -15,4 +22,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+a {
+    color: rgb(0, 140, 255);
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
 }

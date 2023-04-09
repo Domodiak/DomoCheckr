@@ -19,7 +19,7 @@ function useAuth() {
                         setIsLoading(false)
                     })
             } catch(error) {
-                console.error(error)
+                return
             }
         }
         fetchData()

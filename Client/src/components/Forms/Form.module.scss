@@ -1,0 +1,31 @@
+.form {
+    width: 100%;
+}
+
+.formInput {
+    padding: 0.5rem;
+    box-sizing: border-box;
+    background-color: rgb(24, 28, 51);
+    caret-color: black;
+}
+
+.formInput::placeholder {
+    transition: 500ms color;
+}
+
+.formInput:focus::placeholder {
+    color: black;
+}
+
+.formControl {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.formSubmit {
+    padding: 0.5rem;
+    background-color: rgb(92, 189, 92);
+    color: auto;
+    width: 100%;
+    height: 100%;
+}
