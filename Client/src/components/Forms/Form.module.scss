@@ -6,15 +6,19 @@
     padding: 0.5rem;
     box-sizing: border-box;
     background-color: rgb(24, 28, 51);
-    caret-color: black;
+    caret-color: white;
+    color: white;
 }
 
 .formInput::placeholder {
-    transition: 500ms color;
+    color: white;
+    opacity: 0.2;
+    transition: 500ms opacity;
 }
 
 .formInput:focus::placeholder {
-    color: black;
+    opacity: 1;
+    color: white;
 }
 
 .formControl {
@@ -28,4 +32,5 @@
     color: auto;
     width: 100%;
     height: 100%;
+    font-weight: bold;
 }
