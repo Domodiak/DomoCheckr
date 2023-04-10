@@ -38,7 +38,7 @@ export default function Login({ auth }) {
                                 placeholder='Password'
                                 fullWidth
                                 required/>
-                            <FormSubmit index="2" onHover={handleHover} content='Login'/>
+                            <FormSubmit content='Login'/>
                             <div className={styles.formUrls}>
                                 <a href="#">Forgot password?</a>
                                 <a href="#">Sign up</a>
