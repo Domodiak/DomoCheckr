@@ -1,7 +1,7 @@
 import { Form } from "../../components/Forms/Form"
 import { TextField } from "../../components/Forms/TextField"
 import { FormSubmit } from "../../components/Forms/FormSubmit"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Login.module.scss'
 
 export default function Login({ auth }) {
@@ -12,7 +12,6 @@ export default function Login({ auth }) {
 
     const [ Username, setUsername ] = useState('')
     const [ Password, setPassword ] = useState('')
-    const [ index, setIndex ] = useState('-1')
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -46,6 +45,18 @@ export default function Login({ auth }) {
                         </Form>
                     </div>
                 </div>
+            </div>
+            <div className={styles.background}>
+                <div className={styles.backgroundChild}></div>
+                <div className={styles.backgroundChild}></div>
+                <div className={styles.backgroundChild}></div>
+                <div className={styles.backgroundChild}></div>
+                <div className={styles.backgroundChild}></div>
+                <div className={styles.backgroundChild}></div>
+                <div className={styles.backgroundChild}></div>
+                <div className={styles.backgroundChild}></div>
+                <div className={styles.backgroundChild}></div>
+                <div className={styles.backgroundChild}></div>
             </div>
         </>
     )

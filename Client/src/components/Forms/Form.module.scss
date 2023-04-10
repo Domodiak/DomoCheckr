@@ -3,7 +3,8 @@
 }
 
 .formInput {
-    padding: 0.5rem;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
     box-sizing: border-box;
     background-color: rgb(24, 28, 51);
     caret-color: white;
@@ -26,11 +27,48 @@
     margin-bottom: 1rem;
 }
 
-.formSubmit {
-    padding: 0.5rem;
-    background-color: rgb(92, 189, 92);
-    color: auto;
-    width: 100%;
-    height: 100%;
-    font-weight: bold;
+.formSubmitContainer {
+    position: relative;
+    .formSubmit {
+        padding: 0.25rem 0 0.25rem 0;
+        background-color: rgb(10, 13, 23);
+        width: 100%;
+        height: 100%;
+        font-weight: bold;
+        border-radius: 2rem;
+        color: white;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        border-radius: 2rem;
+        top: -3px;
+        bottom: -3.3px;
+        left: -3px;
+        right: -3px;
+        //background-color: rgb(92, 189, 92);
+        z-index: -1;
+        background-size: 6000%;
+        background-image: linear-gradient(45deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+        background-position: 40%;
+        transition: 1s;
+        animation: borderMove 10s linear infinite;
+        animation-play-state: paused;
+        @keyframes borderMove {
+            0% {
+                background-position: 40% 0%;
+            }
+            100% {
+                background-position: 140% 0%;
+            }
+        }
+    }
+
+    &:hover::before {
+        background-size: 600%;
+        animation-play-state: running;
+    }
 }

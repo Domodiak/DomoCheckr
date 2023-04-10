@@ -6,7 +6,9 @@ export function FormSubmit(props) {
     var index = props.index
     return (
         <div className={styles.formControl}>
-            <input index={index} type="submit" onMouseOver={onHover} className={styles.formSubmit} value={text}></input>
+            <div className={styles.formSubmitContainer}>
+                <input index={index} type="submit" onMouseOver={onHover} className={styles.formSubmit} value={text}></input>
+            </div>
         </div>
     )
 }
