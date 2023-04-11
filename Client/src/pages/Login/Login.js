@@ -1,8 +1,9 @@
 import { Form } from "../../components/Forms/Form"
 import { TextField } from "../../components/Forms/TextField"
 import { FormSubmit } from "../../components/Forms/FormSubmit"
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './Login.module.scss'
+import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground"
 
 export default function Login({ auth }) {
     if(auth) {
@@ -46,18 +47,7 @@ export default function Login({ auth }) {
                     </div>
                 </div>
             </div>
-            <div className={styles.background}>
-                <div className={styles.backgroundChild}></div>
-                <div className={styles.backgroundChild}></div>
-                <div className={styles.backgroundChild}></div>
-                <div className={styles.backgroundChild}></div>
-                <div className={styles.backgroundChild}></div>
-                <div className={styles.backgroundChild}></div>
-                <div className={styles.backgroundChild}></div>
-                <div className={styles.backgroundChild}></div>
-                <div className={styles.backgroundChild}></div>
-                <div className={styles.backgroundChild}></div>
-            </div>
+            <DynamicBackground count={15}/>
         </>
     )
 }
