@@ -10,7 +10,7 @@ Set due dates and reminders for tasks
 Search and filter tasks by status, due date, and more
 # Installation
 Clone the repository to your local machine
-Install dependencies with npm install
+
 Create a .env file in the project root and set the following environment variables:
 
 Copy code:
@@ -33,6 +33,10 @@ In your second terminal go to Server folder
 Install dependancies by running `pip install -r requirements.txt`
 
 Start the server with `python manage.py runserver`
+
+Shut down the server in any convenient way in order to apply migrations.
+
+Run `python manage.py migrate` and then start the server again
 # Usage
 well i guess theres no usage yet, front-end is served at https://localhost:8080/
 # License
