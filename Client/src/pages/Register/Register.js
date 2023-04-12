@@ -2,10 +2,10 @@ import { Form } from "../../components/Forms/Form"
 import { TextField } from "../../components/Forms/TextField"
 import { FormSubmit } from "../../components/Forms/FormSubmit"
 import { useState } from 'react'
-import styles from './Login.module.scss'
+import styles from './Register.module.scss'
 import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground"
 
-export default function Login({ auth }) {
+export default function Register({ auth }) {
     if(auth) {
         window.location.href = '/'
         return <div></div>
@@ -13,19 +13,20 @@ export default function Login({ auth }) {
 
     const [ formInput, setFormInput ] = useState({})
 
+    console.log(formInput)
+
     function handleInput(event) {
         var name = event.target.getAttribute('name')
         var value = event.target.value
 
-        setFormInput(prevState => ({
-            ...prevState,
+        setFormInput(prevValue => ({
+            ...prevValue,
             [name]: value
         }))
     }
 
     function handleSubmit(event) {
         event.preventDefault()
-        console.log(formInput)
     }
 
     return(
@@ -33,7 +34,7 @@ export default function Login({ auth }) {
             <div className={styles.formContainer}>
                 <div className={styles.formShape}>
                     <div className={styles.formContent}>
-                        <h1>Login</h1>
+                        <h1>Register</h1>
                         <Form onSubmit={handleSubmit} Validate={false}>
                             <TextField
                                 type='text'
@@ -43,16 +44,30 @@ export default function Login({ auth }) {
                                 fullWidth
                                 required/>
                             <TextField
+                                type='email'
+                                name='email'
+                                onChange={handleInput}
+                                placeholder='Email'
+                                fullWidth
+                                required/>
+                            <TextField
                                 type='password'
-                                name='password'
+                                name='password1'
                                 onChange={handleInput}
                                 placeholder='Password'
                                 fullWidth
                                 required/>
-                            <FormSubmit content='Login' variant={1}/>
+                            <TextField
+                                type='password'
+                                name='password2'
+                                onChange={handleInput}
+                                placeholder='Confirm Password'
+                                fullWidth
+                                required/>
+                            <FormSubmit content='Register' variant={2}/>
                             <div className={styles.formUrls}>
                                 <a href="#">Forgot password?</a>
-                                <a href="/register/">Sign up</a>
+                                <a href="/login/">Sign in</a>
                             </div>
                         </Form>
                     </div>
