@@ -5,26 +5,26 @@ import Login from "./pages/Login/Login";
 import { useState, useEffect } from 'react';
 import config from './config'
 import Register from './pages/Register/Register';
+import axios from 'axios';
 
 function useAuth() {
     const [ isLoading, setIsLoading ] = useState(true)
     const [ auth, setAuth ] = useState(false)
     useEffect(() => {
         const fetchData = () => {
-            try {
-                fetch(config.ApiHost + 'api/auth/check/')
-                    .then(response => {
-                        if(response.ok) {
-                            setAuth(true)
-                        }
-                        setIsLoading(false)
-                    })
-            } catch(error) {
-                return
-            }
+            axios.get(config.ApiHost + 'api/auth/check/')
+                .then(response => {
+                    if(response.status == 200) {
+                        setAuth(true)
+                    }
+                    setIsLoading(false)
+                })
+                .catch(error => {
+                    setIsLoading(false)
+            })
         }
         fetchData()
-    }, [])
+    }, [ axios, config.ApiHost ])
     return [ auth, isLoading ]
 }
 

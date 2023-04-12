@@ -13,8 +13,6 @@ export default function Register({ auth }) {
 
     const [ formInput, setFormInput ] = useState({})
 
-    console.log(formInput)
-
     function handleInput(event) {
         var name = event.target.getAttribute('name')
         var value = event.target.value
@@ -27,6 +25,7 @@ export default function Register({ auth }) {
 
     function handleSubmit(event) {
         event.preventDefault()
+        console.log(formInput)
     }
 
     return(
