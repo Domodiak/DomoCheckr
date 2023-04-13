@@ -6,7 +6,7 @@ import Register from './pages/Register/Register';
 import Cookie from 'js-cookie'
 
 export default function App() {
-    const auth = Cookie.get('token') !== null
+    const auth = Cookie.get('token') !== undefined
 
     return (
         <BrowserRouter>

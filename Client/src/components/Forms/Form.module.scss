@@ -23,6 +23,12 @@
 }
 
 .formControl {
+    .formInputError {
+        font-weight: lighter;
+        font-style: italic;
+        color: red;
+        font-size: 12px;
+    }
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
