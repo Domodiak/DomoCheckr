@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './DynamicBackground.module.scss'
 import { BackgroundChild } from './BackgroundChild';
 

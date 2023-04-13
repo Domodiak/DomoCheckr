@@ -11,9 +11,9 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<Home auth={auth}/>}></Route>
-                <Route path='login/' element={<Login auth={auth}/>}></Route>
-                <Route path='register/' element={<Register auth={auth} />}></Route>
+                <Route path='/' element={<Home auth={auth}/>}/> 
+                <Route path='login/' element={<Login auth={auth}/>}/>
+                <Route path='register/' element={<Register auth={auth} />}/>
                 <Route path='*' element={<PageDoesntExist/>} />
             </Routes>
         </BrowserRouter>

@@ -23,7 +23,7 @@ def register(request):
         # Validate input
         User.objects.create_user(username=username, email=email, password=password)
     except ValidationError as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'User creation failed'}, status=status.HTTP_400_BAD_REQUEST)
     
     user = User.objects.get(username=username)
     token = Token.objects.create(user=user)
