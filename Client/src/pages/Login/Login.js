@@ -4,6 +4,9 @@ import { FormSubmit } from "../../components/Forms/FormSubmit"
 import { useState } from 'react'
 import styles from './Login.module.scss'
 import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground"
+import axios from 'axios'
+import config from "../../config"
+import Cookie from "js-cookie"
 
 export default function Login({ auth }) {
     if(auth) {
@@ -25,7 +28,14 @@ export default function Login({ auth }) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        console.log(formInput)
+        
+        axios.post(config.ApiHost + "api/auth/auth/", formInput)
+            .then((response) => {
+                if(response.status === 200) {
+                    Cookie.set('token', response.data.token)
+                }
+            })
+            .catch(error => {})
     }
 
     return(

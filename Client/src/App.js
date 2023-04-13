@@ -2,22 +2,14 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Home } from './pages/Home/Home';
 import { PageDoesntExist } from "./pages/PageDoesntExist/PageDoesntExist";
 import Login from "./pages/Login/Login";
-import { useState, useEffect } from 'react';
-import config from './config'
 import Register from './pages/Register/Register';
-import axios from 'axios';
-import { useAuth } from './hooks/useAuth';
+import Cookie from 'js-cookie'
 
 export default function App() {
-    const [ auth, isLoading ] = useAuth()
-
-    if(isLoading) {
-        return <div></div>
-    }
+    const auth = Cookie.get('token') !== null
 
     return (
         <BrowserRouter>
-        
             <Routes>
                 <Route path='/' element={<Home auth={auth}/>}></Route>
                 <Route path='login/' element={<Login auth={auth}/>}></Route>
