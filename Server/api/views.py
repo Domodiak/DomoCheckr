@@ -1,5 +1,6 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -29,3 +30,9 @@ def register(request):
 
     # Return token in response
     return Response({'token': token.key}, status=status.HTTP_201_CREATED)
+
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+@renderer_classes([JSONRenderer, TemplateHTMLRenderer])
+def getUser(request):
+    return Response({ "user": request.user.username }, status=status.HTTP_200_OK)
