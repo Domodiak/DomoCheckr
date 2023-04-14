@@ -6,7 +6,7 @@ import Cookies from "js-cookie"
 export class Home extends Component {
     constructor(props) {
         super(props)
-        this.state = { auth: props.auth, user: '', userS: '', intervalId: 0 } 
+        this.state = { auth: props.auth, user: '', userS: 'ovsnzixb', intervalId: 0 } 
     }
 
     componentDidMount = () => {
@@ -14,7 +14,7 @@ export class Home extends Component {
             window.location.href = '/login/'
         }
         axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
-            .then(response => this.setState({user: response.data.user}))
+        .then(response => this.setState({user: response.data.user}))
         
         const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
         

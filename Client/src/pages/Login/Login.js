@@ -33,6 +33,7 @@ export default function Login({ auth }) {
             .then((response) => {
                 if(response.status === 200) {
                     Cookie.set('token', response.data.token)
+                    window.location.href = '/'
                 }
             })
             .catch(error => {})
