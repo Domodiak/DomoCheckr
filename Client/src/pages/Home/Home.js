@@ -44,6 +44,7 @@ export class Home extends Component {
         return (
             <div>
                 <h1>Hiya, {this.state.userS}!</h1>
+                <a href='/logout/'>Log out</a>
             </div>
         )
     }
