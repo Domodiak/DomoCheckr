@@ -1,12 +1,13 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from rest_framework.decorators import api_view, permission_classes, renderer_classes
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from rest_framework import status
+from .models import Task
+from .serializers import UserSerializer, TaskSerializer
 
 class checkAuthentication(APIView):
     permission_classes = [IsAuthenticated]
@@ -33,6 +34,22 @@ def register(request):
 
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
-@renderer_classes([JSONRenderer, TemplateHTMLRenderer])
 def getUser(request):
-    return Response({ "user": request.user.username }, status=status.HTTP_200_OK)
+    return Response({ "user": UserSerializer(request.user).data }, status=status.HTTP_200_OK)
+
+@permission_classes([IsAuthenticated])
+@api_view(['POST'])
+def createTask(request):
+    title = request.data.get("title")
+    description = request.data.get("description")
+    task = None
+    try:
+        task = Task.objects.create(
+            title = title,
+            description = description,
+            creator = request.user
+        )
+    except ValidationError:
+        return Response({ 'error': 'Task creation failed' }, status=status.HTTP_400_BAD_REQUEST)
+
+    return Response({ 'message': 'Task created', 'task': TaskSerializer(task).data }, status=status.HTTP_201_CREATED)

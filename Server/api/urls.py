@@ -6,5 +6,6 @@ urlpatterns = [
     path('auth/auth/', obtain_auth_token, name='api-token-auth'),
     path('auth/register/', register, name='register'),
     path('auth/check/', checkAuthentication.as_view(), name='api-auth-check'),
-    path('auth/get-user/', getUser, name='getUser')
+    path('auth/get-user/', getUser, name='get-user'),
+    path('tasks/create-task/', createTask, name='create-task'),
 ]

@@ -2,11 +2,19 @@ import axios from "axios"
 import { Component } from "react"
 import config from "../../config"
 import Cookies from "js-cookie"
+import styles from './Home.module.scss'
 
 export class Home extends Component {
     constructor(props) {
         super(props)
         this.state = { auth: props.auth, user: '', userS: 'ovsnzixb', intervalId: 0 } 
+        this.createTestTask = () => {
+            axios.post(config.ApiHost + "api/tasks/create-task/", {'title': 'A task', 'description': `This is a new task ${this.state.user} just created`}, {
+                headers: {
+                    Authorization: 'Token ' + Cookies.get("token")
+                }
+            }).then(response => console.log(response))
+        }
     }
 
     componentDidMount = () => {
@@ -14,7 +22,7 @@ export class Home extends Component {
             window.location.href = '/login/'
         }
         axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
-        .then(response => this.setState({user: response.data.user}))
+        .then(response => this.setState({user: response.data.user.username}))
         
         const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
         
@@ -40,11 +48,13 @@ export class Home extends Component {
         }
     }
 
+
     render() {
         return (
             <div>
                 <h1>Hiya, {this.state.userS}!</h1>
                 <a href='/logout/'>Log out</a>
+                <button className={styles.button} onClick={this.createTestTask}>Create a test task</button>
             </div>
         )
     }
