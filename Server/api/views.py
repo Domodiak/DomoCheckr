@@ -52,4 +52,10 @@ def createTask(request):
     except ValidationError:
         return Response({ 'error': 'Task creation failed' }, status=status.HTTP_400_BAD_REQUEST)
 
-    return Response({ 'message': 'Task created', 'task': TaskSerializer(task).data }, status=status.HTTP_201_CREATED)
+    return Response({ 'task': TaskSerializer(task).data }, status=status.HTTP_201_CREATED)
+
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def getTasks(request):
+    tasks = TaskSerializer(Task.objects.filter(creator=request.user), many=True).data
+    return Response(tasks)

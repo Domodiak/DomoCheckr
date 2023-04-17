@@ -8,4 +8,5 @@ urlpatterns = [
     path('auth/check/', checkAuthentication.as_view(), name='api-auth-check'),
     path('auth/get-user/', getUser, name='get-user'),
     path('tasks/create-task/', createTask, name='create-task'),
+    path('tasks/get-tasks/', getTasks, name='get-tasks')
 ]

@@ -3,6 +3,7 @@ import { Component } from "react"
 import config from "../../config"
 import Cookies from "js-cookie"
 import styles from './Home.module.scss'
+import { MapTasks } from "../../components/Tasks/MapTasks"
 
 export class Home extends Component {
     constructor(props) {
@@ -19,7 +20,11 @@ export class Home extends Component {
                 headers: {
                     Authorization: 'Token ' + Cookies.get("token")
                 }
-            }).then(response => console.log(response))
+            }).then(response => {
+                if(response.status == 200 || response.status == 201) {
+                    this.state.tasks.push(response.data.task)
+                }
+            })
         }
     }
     
@@ -42,7 +47,6 @@ export class Home extends Component {
             for(var i = Math.floor(start / 5); i < Math.max(length, this.state.user.length); i++) {
                 console.log(this.state.user, this.state.userS)
                 if(this.state.user == this.state.userS) {
-                    alert("Stop")
                     break
                 }
                 username = username + letters[Math.round(Math.random() * letters.length)];
@@ -73,6 +77,7 @@ export class Home extends Component {
                 <h1>Hiya, {this.state.userS}!</h1>
                 <a href='/logout/'>Log out</a>
                 <button className={styles.button} onClick={this.createTestTask}>Create a test task</button>
+                <MapTasks tasks={this.state.tasks} />
             </div>
         )
     }
