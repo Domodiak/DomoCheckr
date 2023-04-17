@@ -7,7 +7,13 @@ import styles from './Home.module.scss'
 export class Home extends Component {
     constructor(props) {
         super(props)
-        this.state = { auth: props.auth, user: '', userS: 'ovsnzixb', intervalId: 0 } 
+        this.state = { 
+            auth: props.auth,
+            user: '',
+            userS: 'ovsnzixb',
+            intervalId: 0,
+            tasks: {},
+        } 
         this.createTestTask = () => {
             axios.post(config.ApiHost + "api/tasks/create-task/", {'title': 'A task', 'description': `This is a new task ${this.state.user} just created`}, {
                 headers: {
@@ -16,13 +22,15 @@ export class Home extends Component {
             }).then(response => console.log(response))
         }
     }
-
+    
     componentDidMount = () => {
         if(!this.state.auth) {
             window.location.href = '/login/'
         }
         axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
-        .then(response => this.setState({user: response.data.user.username}))
+            .then(response => this.setState({user: response.data.user.username}))
+        axios.get(config.ApiHost + 'api/tasks/get-tasks/', {headers: {Authorization: "Token " + Cookies.get('token')}})
+            .then(response => this.state.tasks = response.data)
         
         const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
         
@@ -32,6 +40,11 @@ export class Home extends Component {
         var intervalId = setInterval(() => {
             var username = this.state.user.substring(0, Math.floor(start / 5))
             for(var i = Math.floor(start / 5); i < Math.max(length, this.state.user.length); i++) {
+                console.log(this.state.user, this.state.userS)
+                if(this.state.user == this.state.userS) {
+                    alert("Stop")
+                    break
+                }
                 username = username + letters[Math.round(Math.random() * letters.length)];
             }
             if(this.state.user !== '') {
@@ -47,9 +60,14 @@ export class Home extends Component {
             clearInterval(this.state.intervalId)
         }
     }
+    
+    componentWillUnmount = () => {
+        clearInterval(this.state.intervalId)
+    }
 
 
     render() {
+        console.log(this.state.tasks)
         return (
             <div>
                 <h1>Hiya, {this.state.userS}!</h1>
