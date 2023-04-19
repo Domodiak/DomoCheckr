@@ -30,3 +30,17 @@
     white-space: break-spaces;
     word-wrap: break-word;
 }
+
+.taskIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.taskDropdown {
+    top: -1rem;
+    right: 1.5rem;
+    left: auto;
+    width: fit-content;
+}

@@ -5,13 +5,19 @@ import Cookies from "js-cookie"
 import styles from './Home.module.scss'
 import { MapTasks } from "../../components/Tasks/MapTasks"
 
+const length = 8
 export class Home extends Component {
     constructor(props) {
         super(props)
+        const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        var username = '';
+        for(var i = 0; i < length; i++) {
+            username = username + letters[Math.round(Math.random() * letters.length)];
+        }
         this.state = { 
             auth: props.auth,
             user: '',
-            userS: 'ovsnzixb',
+            userS: username,
             intervalId: 0,
             tasks: {},
         } 
@@ -39,13 +45,11 @@ export class Home extends Component {
         
         const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
         
-        const length = 8
         var start = 0
 
         var intervalId = setInterval(() => {
             var username = this.state.user.substring(0, Math.floor(start / 5))
             for(var i = Math.floor(start / 5); i < Math.max(length, this.state.user.length); i++) {
-                console.log(this.state.user, this.state.userS)
                 if(this.state.user == this.state.userS) {
                     break
                 }
@@ -71,7 +75,6 @@ export class Home extends Component {
 
 
     render() {
-        console.log(this.state.tasks)
         return (
             <div>
                 <h1>Hiya, {this.state.userS}!</h1>
