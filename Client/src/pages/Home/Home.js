@@ -1,88 +1,41 @@
 import axios from "axios"
-import { Component } from "react"
 import config from "../../config"
 import Cookies from "js-cookie"
 import styles from './Home.module.scss'
 import { MapTasks } from "../../components/Tasks/MapTasks"
+import { useEffect, useState } from "react"
 
 const length = 8
-export class Home extends Component {
-    constructor(props) {
-        super(props)
-        const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
-        var username = '';
-        for(var i = 0; i < length; i++) {
-            username = username + letters[Math.round(Math.random() * letters.length)];
-        }
-        this.state = { 
-            auth: props.auth,
-            user: '',
-            userS: username,
-            intervalId: 0,
-            tasks: {},
-        } 
-        this.createTestTask = () => {
-            axios.post(config.ApiHost + "api/tasks/create-task/", {'title': 'A task', 'description': `This is a new task ${this.state.user} just created`}, {
-                headers: {
-                    Authorization: 'Token ' + Cookies.get("token")
-                }
-            }).then(response => {
-                if(response.status == 200 || response.status == 201) {
-                    this.state.tasks.push(response.data.task)
-                }
-            })
-        }
+export function Home() {
+    const [ tasks, setTasks ] = useState([])
+    const [ username, setUsername ] = useState('')
+
+    function createTestTask() {
+        axios.post(config.ApiHost + "api/tasks/create-task/", {'title': 'A task', 'description': `This is a new task ${username} just created`}, {
+            headers: {
+                Authorization: 'Token ' + Cookies.get("token")
+            }
+        }).then(response => {
+            if(response.status == 200 || response.status == 201) {
+                setTasks(prevState => { return prevState.concat(response.data.task) })
+            }
+        })
     }
     
-    componentDidMount = () => {
-        if(!this.state.auth) {
-            window.location.href = '/login/'
-        }
+    useEffect(() => {
         axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
-            .then(response => this.setState({user: response.data.user.username}))
+            .then(response => setUsername(response.data.user.username))
         axios.get(config.ApiHost + 'api/tasks/get-tasks/', {headers: {Authorization: "Token " + Cookies.get('token')}})
-            .then(response => this.state.tasks = response.data)
-        
-        const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
-        
-        var start = 0
-
-        var intervalId = setInterval(() => {
-            var username = this.state.user.substring(0, Math.floor(start / 5))
-            for(var i = Math.floor(start / 5); i < Math.max(length, this.state.user.length); i++) {
-                if(this.state.user == this.state.userS) {
-                    break
-                }
-                username = username + letters[Math.round(Math.random() * letters.length)];
-            }
-            if(this.state.user !== '') {
-                start = start + 1
-            }
-            this.setState({userS: username})
-        }, 20)
-        this.setState({intervalId: intervalId})
-    }
-
-    componentDidUpdate = () => {
-        if(this.state.user == this.state.userS) {
-            clearInterval(this.state.intervalId)
-        }
-    }
+            .then(response => setTasks(response.data))
+    }, [])
     
-    componentWillUnmount = () => {
-        clearInterval(this.state.intervalId)
-    }
-
-
-    render() {
-        return (
-            <div>
-                <h1>Hiya, {this.state.userS}!</h1>
-                <a href='/logout/'>Log out</a>
-                <button className={styles.button} onClick={this.createTestTask}>Create a test task</button>
-                <MapTasks tasks={this.state.tasks} />
-            </div>
-        )
-    }
-    
+    console.log('re-render')
+    return (
+        <div>
+            <h1>Hiya, {username}!</h1>
+            <a href='/logout/'>Log out</a>
+            <button className={styles.button} onClick={createTestTask}>Create a test task</button>
+            <MapTasks tasks={tasks} />
+        </div>
+    )
 }
