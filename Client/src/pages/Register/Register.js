@@ -1,17 +1,20 @@
 import { Form } from "../../components/Forms/Form"
 import { TextField } from "../../components/Forms/TextField"
 import { FormSubmit } from "../../components/Forms/FormSubmit"
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import styles from './Register.module.scss'
 import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground"
 import axios from "axios"
 import config from "../../config"
 import Cookies from "js-cookie"
+import { useNavigate } from "react-router-dom"
+import AuthContext from "../../utils/AuthContext"
 
-export default function Register({ auth }) {
-    if(auth) {
-        window.location.href = '/'
-        return <div></div>
+export default function Register() {
+    const navigate = useNavigate()
+    const auth = useContext(AuthContext)
+    if(!auth) {
+        navigate('/login/')
     }
 
     const [ formInput, setFormInput ] = useState({})

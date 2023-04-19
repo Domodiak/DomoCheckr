@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground";
 
-export function Logout({ auth }) {
+export function Logout() {
 
     Cookies.remove('token')
     window.location.href = '/login/'

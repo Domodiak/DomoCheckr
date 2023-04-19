@@ -3,12 +3,25 @@ import config from "../../config"
 import Cookies from "js-cookie"
 import styles from './Home.module.scss'
 import { MapTasks } from "../../components/Tasks/MapTasks"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import AuthContext from "../../utils/AuthContext"
+import { useNavigate } from "react-router-dom"
 
-const length = 8
 export function Home() {
+    const navigate = useNavigate()
+    const auth = useContext(AuthContext)
+    if(!auth) {
+        navigate('/login/')
+    }
     const [ tasks, setTasks ] = useState([])
     const [ username, setUsername ] = useState('')
+
+    useEffect(() => {
+        axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
+            .then(response => setUsername(response.data.user.username))
+        axios.get(config.ApiHost + 'api/tasks/get-tasks/', {headers: {Authorization: "Token " + Cookies.get('token')}})
+            .then(response => setTasks(response.data))
+    }, [])
 
     function createTestTask() {
         axios.post(config.ApiHost + "api/tasks/create-task/", {'title': 'A task', 'description': `This is a new task ${username} just created`}, {
@@ -22,14 +35,6 @@ export function Home() {
         })
     }
     
-    useEffect(() => {
-        axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
-            .then(response => setUsername(response.data.user.username))
-        axios.get(config.ApiHost + 'api/tasks/get-tasks/', {headers: {Authorization: "Token " + Cookies.get('token')}})
-            .then(response => setTasks(response.data))
-    }, [])
-    
-    console.log('re-render')
     return (
         <div>
             <h1>Hiya, {username}!</h1>
