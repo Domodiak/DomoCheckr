@@ -1,9 +1,9 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { Home } from './pages/Home/Home';
-import { PageDoesntExist } from "./pages/PageDoesntExist/PageDoesntExist";
-import Login from "./pages/Login/Login";
-import { Logout } from './pages/Logout/Logout';
-import Register from './pages/Register/Register';
+import { Home } from './pages/Home/Home.jsx';
+import { PageDoesntExist } from "./pages/PageDoesntExist/PageDoesntExist.jsx";
+import Login from "./pages/Login/Login.jsx";
+import { Logout } from './pages/Logout/Logout.jsx';
+import Register from './pages/Register/Register.jsx';
 import Cookie from 'js-cookie'
 import AuthContext from './utils/AuthContext';
 

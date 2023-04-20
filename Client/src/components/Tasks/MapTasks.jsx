@@ -1,4 +1,4 @@
-import { Task } from "./Task"
+import { Task } from "./Task.jsx"
 import styles from './Tasks.module.scss'
 
 export function MapTasks({ tasks }) {

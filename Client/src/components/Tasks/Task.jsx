@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import DropdownMenu from '../Dropdown/Dropdown'
+import DropdownMenu from '../Dropdown/Dropdown.jsx'
 import styles from './Tasks.module.scss'
 
 export function Task({ title, description }) {

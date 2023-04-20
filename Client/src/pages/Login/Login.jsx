@@ -1,9 +1,9 @@
-import { Form } from "../../components/Forms/Form"
-import { TextField } from "../../components/Forms/TextField"
-import { FormSubmit } from "../../components/Forms/FormSubmit"
+import { Form } from "../../components/Forms/Form.jsx"
+import { TextField } from "../../components/Forms/TextField.jsx"
+import { FormSubmit } from "../../components/Forms/FormSubmit.jsx"
 import { useContext, useState } from 'react'
 import styles from './Login.module.scss'
-import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground"
+import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground.jsx"
 import axios from 'axios'
 import config from "../../config"
 import Cookie from "js-cookie"

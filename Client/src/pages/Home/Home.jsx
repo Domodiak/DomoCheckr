@@ -2,7 +2,7 @@ import axios from "axios"
 import config from "../../config"
 import Cookies from "js-cookie"
 import styles from './Home.module.scss'
-import { MapTasks } from "../../components/Tasks/MapTasks"
+import { MapTasks } from "../../components/Tasks/MapTasks.jsx"
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../../utils/AuthContext"
 import { useNavigate } from "react-router-dom"

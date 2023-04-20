@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground";
+import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground.jsx";
 
 export function Logout() {
 

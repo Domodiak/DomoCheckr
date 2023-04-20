@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './DynamicBackground.module.scss'
-import { BackgroundChild } from './BackgroundChild';
+import { BackgroundChild } from './BackgroundChild.jsx';
 
 const HUE_RANGES = [
     [0, 60],
