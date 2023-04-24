@@ -35,6 +35,8 @@ ALLOWED_HOSTS = ['localhost']
 
 INSTALLED_APPS = [
     'api',
+    'api.userauth',
+    'api.tasks',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',

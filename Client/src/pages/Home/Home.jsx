@@ -19,12 +19,12 @@ export function Home() {
     useEffect(() => {
         axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
             .then(response => setUsername(response.data.user.username))
-        axios.get(config.ApiHost + 'api/tasks/get-tasks/', {headers: {Authorization: "Token " + Cookies.get('token')}})
+        axios.get(config.ApiHost + 'api/tasks/get-all/', {headers: {Authorization: "Token " + Cookies.get('token')}})
             .then(response => setTasks(response.data))
     }, [])
 
     function createTestTask() {
-        axios.post(config.ApiHost + "api/tasks/create-task/", {'title': 'A task', 'description': `This is a new task ${username} just created`}, {
+        axios.post(config.ApiHost + "api/tasks/create/", {'title': 'A task', 'description': `This is a new task ${username} just created`}, {
             headers: {
                 Authorization: 'Token ' + Cookies.get("token")
             }

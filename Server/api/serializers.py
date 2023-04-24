@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Task
+from .tasks import models as tasksModels
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     creator = UserSerializer()
     class Meta:
-        model = Task
+        model = tasksModels.Task
         fields = ['title', 'description', 'created_time', 'due_date', 'creator']
         depth = 1
     
