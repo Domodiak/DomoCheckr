@@ -1,7 +1,7 @@
 import { Form } from "../../components/Forms/Form.jsx"
 import { TextField } from "../../components/Forms/TextField.jsx"
 import { FormSubmit } from "../../components/Forms/FormSubmit.jsx"
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './Login.module.scss'
 import { DynamicBackground } from "../../components/DynamicBackground/DynamicBackground.jsx"
 import axios from 'axios'
@@ -13,9 +13,11 @@ import AuthContext from "../../utils/AuthContext"
 export default function Login() {
     const navigate = useNavigate()
     const auth = useContext(AuthContext)
-    if(auth) {
-        navigate('/')
-    }
+    useEffect(() => {
+        if(auth) {
+            navigate('/')
+        }
+    }, [auth])
 
     const [ formInput, setFormInput ] = useState({})
 

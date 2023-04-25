@@ -10,11 +10,14 @@ import { useNavigate } from "react-router-dom"
 export function Home() {
     const navigate = useNavigate()
     const auth = useContext(AuthContext)
-    if(!auth) {
-        navigate('/login/')
-    }
     const [ tasks, setTasks ] = useState([])
     const [ username, setUsername ] = useState('')
+    
+    useEffect(() => {
+        if(!auth) {
+            navigate('/login/')
+        }
+    }, [auth])
 
     useEffect(() => {
         axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
