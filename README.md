@@ -38,6 +38,6 @@ Shut down the server in any convenient way in order to apply migrations.
 
 Run `python manage.py migrate` and then start the server again
 # Usage
-well i guess theres no usage yet, front-end is served at https://localhost:8080/
+well i guess theres no usage yet, front-end is served at https://localhost:3000/
 # License
 This project is licensed under the MIT License. See the LICENSE file for more information.
