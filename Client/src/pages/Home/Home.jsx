@@ -5,14 +5,16 @@ import styles from './Home.module.scss'
 import { MapTasks } from "../../components/Tasks/MapTasks.jsx"
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../../utils/AuthContext"
+import UserContext from "../../utils/UserContext"
 import { useNavigate } from "react-router-dom"
 
 export function Home() {
     const navigate = useNavigate()
     const auth = useContext(AuthContext)
+    const user = useContext(UserContext)
     const [ tasks, setTasks ] = useState([])
-    const [ username, setUsername ] = useState('')
-    
+    const [ username, setUsername ] = useState(user.user.username)
+
     useEffect(() => {
         if(!auth) {
             navigate('/login/')
@@ -20,8 +22,8 @@ export function Home() {
     }, [auth])
 
     useEffect(() => {
-        axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
-            .then(response => setUsername(response.data.user.username))
+        // axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
+        //     .then(response => setUsername(response.data.user.username))
         axios.get(config.ApiHost + 'api/tasks/get-all/', {headers: {Authorization: "Token " + Cookies.get('token')}})
             .then(response => setTasks(response.data))
     }, [])
