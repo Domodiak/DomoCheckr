@@ -13,8 +13,8 @@ import AuthContext from "../../utils/AuthContext"
 export default function Register() {
     const navigate = useNavigate()
     const auth = useContext(AuthContext)
-    if(!auth) {
-        navigate('/login/')
+    if(auth) {
+        navigate('/')
     }
 
     const [ formInput, setFormInput ] = useState({})
@@ -49,23 +49,23 @@ export default function Register() {
         }
         var emailValid = true
         var emailError = -1
-        for(var i = 0; i < emailRegex.length; i++) {
+        for(var k = 0; k < emailRegex.length; k++) {
             emailValid = emailRegex[i].test(formInput.email)
             if(!emailValid) {
-                emailError = i
+                emailError = k
                 break
             }
         }
         var passwordValid = true
         var passwordError = -1
-        for(var i = 0; i < passwordRegex.length; i++) {
+        for(var m = 0; m < passwordRegex.length; m++) {
             passwordValid = passwordRegex[i].test(formInput.password1)
             if(!passwordValid) {
-                passwordError = i
+                passwordError = m
                 break
             }
         }
-        var passwordsMatch = formInput.password1 == formInput.password2
+        var passwordsMatch = formInput.password1 === formInput.password2
 
         return {
             valid: {
@@ -109,10 +109,9 @@ export default function Register() {
         var isValid = validationResult.valid.user && validationResult.valid.email && validationResult.valid.password && validationResult.valid.passwordsMatch
 
         if(isValid) {
-            console.log("Post")
             axios.post(config.ApiHost + "api/auth/register/", { username: formInput.username, email: formInput.email, password: formInput.password1})
                 .then(response => Cookies.set('token', response.data.token))
-                window.location.href = '/'
+                navigate('/')
         } else {
             if(!validationResult.valid.user) setUsernameError(USERNAME_ERROR[validationResult.errorIndex.username]); else setUsernameError('')
             if(!validationResult.valid.email) setEmailError(EMAIL_ERROR[validationResult.errorIndex.email]); else setEmailError('')

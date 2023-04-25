@@ -17,7 +17,7 @@ export default function Login() {
         if(auth) {
             navigate('/')
         }
-    }, [auth])
+    }, [ auth, navigate ])
 
     const [ formInput, setFormInput ] = useState({})
 

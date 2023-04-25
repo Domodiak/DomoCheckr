@@ -25,7 +25,7 @@ export function DropdownMenu({ options, select, dropdownClass, closeOnChoose, cl
         return () => {
             document.removeEventListener('mouseup', handleClick)
         }
-    }, [])
+    }, [ closeOnFocusLost, setVisible ])
 
     return (
         visible ?

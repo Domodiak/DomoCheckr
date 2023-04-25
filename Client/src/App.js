@@ -23,7 +23,7 @@ export default function App() {
             }
         })
             .then((response) => { 
-                if(response.status == 200) {
+                if(response.status === 200) {
                     setAuth(true)
                     setUser(response.data)
                 }
