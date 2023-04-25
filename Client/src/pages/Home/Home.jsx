@@ -13,13 +13,19 @@ export function Home() {
     const auth = useContext(AuthContext)
     const user = useContext(UserContext)
     const [ tasks, setTasks ] = useState([])
-    const [ username, setUsername ] = useState(user.user.username)
+    const [ username, setUsername ] = useState(null)
+
+    useEffect(() => {
+        if(user) {
+            setUsername(user.user.username)
+        }
+    }, [ user ])
 
     useEffect(() => {
         if(!auth) {
             navigate('/login/')
         }
-    }, [auth])
+    }, [ auth, navigate ])
 
     useEffect(() => {
         // axios.get(config.ApiHost + "api/auth/get-user/", {headers: {Authorization: "Token " + Cookies.get('token')}})
@@ -34,7 +40,7 @@ export function Home() {
                 Authorization: 'Token ' + Cookies.get("token")
             }
         }).then(response => {
-            if(response.status == 200 || response.status == 201) {
+            if(response.status === 200 || response.status === 201) {
                 setTasks(prevState => { return prevState.concat(response.data.task) })
             }
         })
