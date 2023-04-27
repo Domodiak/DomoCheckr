@@ -25,11 +25,11 @@ export function DropdownMenu({ options, select, dropdownClass, closeOnChoose, cl
         return () => {
             document.removeEventListener('mouseup', handleClick)
         }
-    }, [ closeOnFocusLost, setVisible ])
+    })
 
     return (
         visible ?
-        <div ref={dropdownRef} className={dropdownClass + " " + styles.dropdown}>
+        <div data-testid='dropdown' ref={dropdownRef} className={dropdownClass + " " + styles.dropdown}>
             {options.map((option, i) => {
                 return <div dropdownkey={option.value} key={i} onClick={handleOptionSelect} className={styles.option}>
                     {option.label}

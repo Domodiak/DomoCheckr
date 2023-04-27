@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { DropdownMenu } from './Dropdown';
 
 test('renders options correctly', () => {
@@ -12,87 +12,78 @@ test('renders options correctly', () => {
 });
 
 test('handles clicks correctly', () => {
+    const handleSelect = jest.fn()
     var options = [
         {label: "A", value: "a"},
         {label: "B", value: "b"}
     ]
-    var clicks = {}
-    const handleSelect = (option) => {
-        if(!clicks[option]) {
-            clicks[option] = 0
-        }
-        clicks[option]++
-    }
 
     render(<DropdownMenu options={options} dropdownClass="TestDropdown" visible select={handleSelect} />);
     var optionA = screen.getByText("A")
     var optionB = screen.getByText("B")
     
-    optionA.click()
-    expect(clicks).toStrictEqual({a: 1})
+    act(() => {
+        optionA.click()
+    })
+    expect(handleSelect).toHaveBeenCalledTimes(1)
+    expect(handleSelect).toHaveBeenCalledWith("a")
 
-    optionB.click()
-    expect(clicks).toStrictEqual({a: 1, b: 1})
+    act(() => {
+        optionB.click()
+    })
+    expect(handleSelect).toHaveBeenCalledWith("b")
 
-    optionB.click()
-    expect(clicks).toStrictEqual({a: 1, b: 2})
+    act(() => {
+        optionB.click()
+    })
+    expect(handleSelect).toHaveBeenCalledWith("b")
 });
 
-test("hides when something was chosen", () => {
-    var clicks = {}
-    var visible = true
-    var setVisible = (v) => {
-        visible = v
-    }
-    const handleSelect = (option) => {
-        if(!clicks[option]) {
-            clicks[option] = 0
-        }
-        clicks[option]++
-    }
+test('hides when something was chosen', () => {
+    const handleSelect = jest.fn();
+    const setVisible = jest.fn();
+  
+    const { getByTestId } = render(
+        <DropdownMenu
+            options={[
+                { label: 'A', value: 'a' },
+                { label: 'B', value: 'b' },
+            ]}
+            dropdownClass="TestDropdown"
+            visible={true}
+            setVisible={setVisible}
+            closeOnChoose={true}
+            select={handleSelect}
+        />
+    );
+  
+    const optionA = screen.getByText('A');
+    const dropdownElement = getByTestId('dropdown');
+  
+    expect(dropdownElement).toBeInTheDocument();
+    expect(optionA).toBeInTheDocument();
+
+    act(() => {
+        optionA.click();
+    })
+  
+    expect(setVisible).toHaveBeenCalledWith(false);
+    expect(handleSelect).toHaveBeenCalledWith('a');
+});
+
+test("hides when clicked away", () => {
+    const setVisible = jest.fn()
+    const handleSelect = jest.fn()
 
     render(
         <DropdownMenu options={[{label: "A", value: "a"},
-            {label: "B", value: "b"}
-        ]} dropdownClass="TestDropdown" visible={visible} setVisible={setVisible} closeOnFocusLost closeOnChoose select={handleSelect} />
-    );
-    var optionA = screen.getByText("A")
-
-    expect(optionA).toBeInTheDocument()
-    optionA.click()
-    setTimeout(() => {
-        expect(optionA).not.toBeInTheDocument()
-    }, 100)
-})
-
-test("hides when clicked away", () => {
-    var clicks = {}
-    var visible = true
-    var setVisible = (v) => {
-        visible = v
-    }
-    const handleSelect = (option) => {
-        if(!clicks[option]) {
-            clicks[option] = 0
-        }
-        clicks[option]++
-    }
-
-    render(
-        <>
-            <h1>Hello</h1>
-            <DropdownMenu options={[{label: "A", value: "a"},
-                {label: "B", value: "b"}
-            ]} dropdownClass="TestDropdown" visible={visible} setVisible={setVisible} closeOnFocusLost closeOnChoose select={handleSelect} />
-        </>
+           {label: "B", value: "b"}
+        ]} dropdownClass="TestDropdown" visible setVisible={setVisible} closeOnFocusLost select={handleSelect} />
     );
 
-    var optionA = screen.getByText("A")
-    var text = screen.getByText("Hello")
+    document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }))
 
-    optionA.click(text)
-
-    setTimeout(() => {
-        expect(optionA).not.toBeInTheDocument()
-    }, 100)
+    expect(setVisible).toHaveBeenCalledTimes(1)
+    expect(setVisible).toHaveBeenCalledWith(false)
+    expect(handleSelect).toHaveBeenCalledTimes(0)
 })
