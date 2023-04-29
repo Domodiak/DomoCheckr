@@ -5,7 +5,7 @@ export function FormSubmit({ variant, content, onHover, index }) {
     return (
         <div className={styles.formControl}>
             <div className={styles.formSubmitContainer}>
-                <input index={index} type="submit" onMouseOver={onHover} className={styles.formSubmit + (styles[colorVariant] ? " " + styles[colorVariant] : "")} value={content}></input>
+                <input data-testid='form-submit' index={index} type="submit" onMouseOver={onHover} className={styles.formSubmit + (styles[colorVariant] ? " " + styles[colorVariant] : "")} value={content}></input>
             </div>
         </div>
     )
