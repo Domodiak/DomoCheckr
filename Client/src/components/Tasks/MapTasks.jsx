@@ -5,7 +5,7 @@ export function MapTasks({ tasks }) {
     tasks = [...tasks].reverse()
 
     return (
-        <div className={styles.tasks}>
+        <div className={styles.tasks} data-testid="task-list">
             {
                 tasks.map((task, index) => {
                     return <Task key={index} title={task.title} description={task.description} />
